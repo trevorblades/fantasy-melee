@@ -2,6 +2,8 @@ require('dotenv').config();
 
 module.exports = {
   plugins: [
+    'gatsby-plugin-chakra-ui',
+    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-graphql',
       options: {

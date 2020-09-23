@@ -1,7 +1,3 @@
-function isMeleeSingles(event) {
-  return Number(event.videogame.id) === 1 && event.type === 1;
-}
-
 exports.createPages = async ({graphql, actions}) => {
   const {data} = await graphql(`
     query TournamentsQuery {
@@ -11,7 +7,6 @@ exports.createPages = async ({graphql, actions}) => {
         ) {
           nodes {
             id
-            numAttendees
             events {
               id
               type
@@ -27,17 +22,13 @@ exports.createPages = async ({graphql, actions}) => {
   `);
 
   const events = data.smashgg.tournaments.nodes
-    .filter(
-      tournament =>
-        tournament.numAttendees >= 1000 &&
-        tournament.events.some(isMeleeSingles)
-    )
     .map(tournament => {
       const [event] = tournament.events
-        .filter(isMeleeSingles)
+        .filter(event => Number(event.videogame.id) === 1 && event.type === 1)
         .sort((a, b) => b.numEntrants - a.numEntrants);
       return event;
-    });
+    })
+    .filter(event => event.numEntrants >= 250);
 
   const results = {};
   const gamerTags = {};
@@ -48,7 +39,7 @@ exports.createPages = async ({graphql, actions}) => {
         smashgg {
           event(id: ${event.id}) {
             numEntrants
-            standings(query: {}) {
+            standings(query: {perPage: 16}) {
               nodes {
                 placement
                 entrant {

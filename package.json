@@ -1,10 +1,14 @@
 {
   "dependencies": {
+    "@chakra-ui/core": "^1.0.0-rc.3",
     "gatsby": "^2.24.64",
+    "gatsby-plugin-chakra-ui": "^1.0.0-rc.3",
+    "gatsby-plugin-react-helmet": "^3.3.11",
     "gatsby-source-graphql": "^2.7.4",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0"
   },
   "devDependencies": {
     "@trevorblades/eslint-config": "^7.2.1",
