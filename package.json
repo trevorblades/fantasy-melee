@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "gatsby": "^2.24.64",
+    "gatsby-source-graphql": "^2.7.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@trevorblades/eslint-config": "^7.2.1",
+    "eslint": "^7.9.0"
+  },
+  "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve"
+  },
+  "eslintConfig": {
+    "extends": "@trevorblades/eslint-config/react"
+  }
+}
