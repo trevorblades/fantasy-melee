@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {AspectRatio, Box, SimpleGrid} from '@chakra-ui/core';
+import {AspectRatio, Avatar, Box, SimpleGrid} from '@chakra-ui/core';
 import {Helmet} from 'react-helmet';
 
 export default function HomePageTemplate({pageContext}) {
@@ -29,6 +29,7 @@ export default function HomePageTemplate({pageContext}) {
           <AspectRatio ratio={3 / 4} key={player.id}>
             <Box bg="gray.100">
               <Box p="4" boxSize="full">
+                <Avatar name={player.gamerTag} src={player.image?.url} />
                 <strong>{player.gamerTag}</strong> {player.score}
               </Box>
             </Box>

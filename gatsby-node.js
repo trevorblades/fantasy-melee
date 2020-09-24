@@ -31,7 +31,7 @@ exports.createPages = async ({graphql, actions}) => {
     .filter(event => event.numEntrants >= 250);
 
   const results = {};
-  const gamerTags = {};
+  const userMeta = {};
 
   for (const event of events) {
     const {data} = await graphql(`
@@ -46,6 +46,10 @@ exports.createPages = async ({graphql, actions}) => {
                   participants {
                     user {
                       id
+                      images {
+                        url
+                        type
+                      }
                       player {
                         gamerTag
                       }
@@ -64,8 +68,12 @@ exports.createPages = async ({graphql, actions}) => {
       const {entrant, placement} = standing;
       const [{user}] = entrant.participants;
 
-      if (!gamerTags[user.id]) {
-        gamerTags[user.id] = user.player.gamerTag;
+      if (!userMeta[user.id]) {
+        userMeta[user.id] = {
+          image: user.images.find(image => image.type === 'profile'),
+          images: user.images,
+          gamerTag: user.player.gamerTag
+        };
       }
 
       const score = numEntrants - placement;
@@ -77,7 +85,7 @@ exports.createPages = async ({graphql, actions}) => {
   const players = Object.entries(results)
     .map(([id, scores]) => ({
       id,
-      gamerTag: gamerTags[id],
+      ...userMeta[id],
       score: scores.reduce((a, b) => a + b)
     }))
     .sort((a, b) => b.score - a.score);
